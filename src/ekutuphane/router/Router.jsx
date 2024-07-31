@@ -1,7 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { Outlet, Navigate, useRoutes } from 'react-router-dom';
 
-import DashboardLayout from 'src/layouts/dashboard';
+import Layout from 'src/ekutuphane/layout/Layout';
 
 export const Dashboard = lazy(() => import('src/ekutuphane/Dashboard'));
 export const BlogPage = lazy(() => import('src/pages/blog'));
@@ -16,11 +16,11 @@ export default function Router() {
   const routes = useRoutes([
     {
       element: (
-        <DashboardLayout>
+        <Layout>
           <Suspense>
             <Outlet />
           </Suspense>
-        </DashboardLayout>
+        </Layout>
       ),
       children: [
         { element: <Dashboard />, index: true },
