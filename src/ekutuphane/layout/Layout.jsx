@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 
 import Box from '@mui/material/Box';
 
-import Nav from './nav';
-import Main from './main';
-import Header from './header';
+import Nav from '../../layouts/dashboard/nav';
+import Main from '../../layouts/dashboard/main';
+import Header from '../../layouts/dashboard/header';
 
 // ----------------------------------------------------------------------
 
@@ -31,6 +31,6 @@ export default function Layout({ children }) {
   );
 }
 
-DashboardLayout.propTypes = {
+Layout.propTypes = {
   children: PropTypes.node,
 };
