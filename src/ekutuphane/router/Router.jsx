@@ -1,9 +1,9 @@
 import { lazy, Suspense } from 'react';
 import { Outlet, Navigate, useRoutes } from 'react-router-dom';
 
-import Layout from 'src/ekutuphane/layout/Layout';
+import Layout from 'src/ekutuphane/components/layout/Layout';
 
-export const Dashboard = lazy(() => import('src/ekutuphane/Dashboard'));
+export const Dashboard = lazy(() => import('src/ekutuphane/components/Dashboard'));
 export const BlogPage = lazy(() => import('src/pages/blog'));
 export const UserPage = lazy(() => import('src/pages/user'));
 export const LoginPage = lazy(() => import('src/pages/login'));

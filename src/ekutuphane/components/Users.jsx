@@ -15,12 +15,12 @@ import { users } from 'src/_mock/user';
 import Iconify from 'src/components/iconify';
 import Scrollbar from 'src/components/scrollbar';
 
-import TableNoData from '../sections/user/table-no-data';
-import UserTableRow from '../sections/user/user-table-row';
-import UserTableHead from '../sections/user/user-table-head';
-import TableEmptyRows from '../sections/user/table-empty-rows';
-import UserTableToolbar from '../sections/user/user-table-toolbar';
-import { emptyRows , applyFilter, getComparator} from '../sections/user/utils';
+import TableNoData from '../../sections/user/table-no-data';
+import UserTableRow from '../../sections/user/user-table-row';
+import UserTableHead from '../../sections/user/user-table-head';
+import TableEmptyRows from '../../sections/user/table-empty-rows';
+import UserTableToolbar from '../../sections/user/user-table-toolbar';
+import { emptyRows , applyFilter, getComparator} from '../../sections/user/utils';
 // ----------------------------------------------------------------------
 
 

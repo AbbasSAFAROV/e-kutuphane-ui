@@ -13,11 +13,11 @@ import { bgBlur } from 'src/theme/css';
 
 import Iconify from 'src/components/iconify';
 
-import Searchbar from '../../ekutuphane/components/layout/partial/common/searchbar';
-import { NAV, HEADER } from '../../ekutuphane/components/layout/partial/config-layout';
-import AccountPopover from '../../ekutuphane/components/layout/partial/common/account-popover';
-import LanguagePopover from '../../ekutuphane/components/layout/partial/common/language-popover';
-import NotificationsPopover from '../../ekutuphane/components/layout/partial/common/notifications-popover';
+import Searchbar from './common/searchbar';
+import { NAV, HEADER } from './config-layout';
+import AccountPopover from './common/account-popover';
+import LanguagePopover from './common/language-popover';
+import NotificationsPopover from './common/notifications-popover';
 
 // ----------------------------------------------------------------------
 

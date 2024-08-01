@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 
 import Box from '@mui/material/Box';
 
-import Nav from '../../layouts/dashboard/nav';
-import Main from '../../layouts/dashboard/main';
-import Header from '../../layouts/dashboard/header';
+import Nav from './partial/nav'
+import Main from './partial/main';
+import Header from './partial/header';
 
 // ----------------------------------------------------------------------
 
