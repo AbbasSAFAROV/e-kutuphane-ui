@@ -28,15 +28,15 @@ export default function LoginView() {
 
   const router = useRouter();
 
-  const [, setUsername] = useState();
-  const [, setPassword] = useState();
+  const [password, setUsername] = useState();
+  const [username, setPassword] = useState();
   const [showPassword, setShowPassword] = useState(false);
 
   const handleLoginClick = async(e) => {
     e.preventDefault();
     console.log("hello");
     try {
-        const res = await axios.post('http://localhost:8080/auth/login');
+        const res = await axios.post('http://localhost:8080/auth/login', {username, userPassword: password});
         localStorage.setItem(JSON.stringify(res?.data));
         router.push('/dashboard');
     } catch (error) {
