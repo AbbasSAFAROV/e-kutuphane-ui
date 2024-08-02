@@ -28,21 +28,20 @@ export default function LoginView() {
 
   const router = useRouter();
 
-  const [password, setUsername] = useState();
-  const [username, setPassword] = useState();
+  const [password, setPassword ] = useState();
+  const [username, setUsername] = useState();
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleLoginClick = async(e) => {
+  const handleLoginClick = async (e) => {
     e.preventDefault();
     console.log("hello");
     try {
-        const res = await axios.post('http://localhost:8080/auth/login', {username, userPassword: password});
-        localStorage.setItem(JSON.stringify(res?.data));
+        const res = await axios.post('http://localhost:8080/auth/login', { username, userPassword: password });
+        localStorage.setItem('user', JSON.stringify(res?.data));
         router.push('/dashboard');
     } catch (error) {
-        console.log("Hata var !!!");
+        console.log("Hata var !!!", error);
     }
-    
   };
 
   const renderForm = (
