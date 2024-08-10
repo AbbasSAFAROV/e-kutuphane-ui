@@ -39,7 +39,7 @@ export default function LoginView() {
         const res = await axios.post('http://localhost:8080/auth/login', { username, userPassword: password });
         localStorage.setItem('user', JSON.stringify(res?.data));
         console.log(res?.data)
-        router.push('/dashboard');
+        router.push('/Book');
     } catch (error) {
         console.log("Hata var !!!", error);
     }
@@ -48,11 +48,11 @@ export default function LoginView() {
   const renderForm = (
     <>
       <Stack spacing={3}>
-        <TextField name="username" label="Email address" onChange={e => setUsername(e.target.value)} />
+        <TextField name="username" label="username" onChange={e => setUsername(e.target.value)} />
 
         <TextField
           name="password"
-          label="Password"
+          label="Password"        
           type={showPassword ? 'text' : 'password'}
           onChange={e => setPassword(e.target.value)}
           InputProps={{

@@ -4,6 +4,7 @@ import { Outlet, Navigate, useRoutes } from 'react-router-dom';
 import Layout from 'src/ekutuphane/components/layout/Layout';
 
 export const Dashboard = lazy(() => import('src/ekutuphane/components/Dashboard'));
+export const Book = lazy(() => import('src/ekutuphane/components/Book'));
 export const BlogPage = lazy(() => import('src/pages/blog'));
 export const UserPage = lazy(() => import('src/pages/user'));
 export const LoginPage = lazy(() => import('src/ekutuphane/components/Login'));
@@ -27,6 +28,7 @@ export default function Router() {
         { path: 'dashboard', element: <Dashboard /> },
         { path: 'user', element: <UserPage /> },
         { path: 'products', element: <ProductsPage /> },
+        { path: 'book', element: <Book /> },
         { path: 'blog', element: <BlogPage /> },
       ],
     },
