@@ -1,21 +1,17 @@
-/* eslint-disable perfectionist/sort-imports */
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
-// import { fCurrency } from 'src/utils/format-number';
 import Typography from '@mui/material/Typography';
 import Label from 'src/components/label';
-// import { css, styled  } from '@mui/system';
-// import { Modal as BaseModal } from '@mui/base/Modal';
-// import clsx from 'clsx';
-// import { ColorPreview } from 'src/components/color-utils';
+
 // ----------------------------------------------------------------------
 
 export default function ShopProductCard({ book }) {
 
+  const [modal, setModal] = useState(false);
 
   const renderStatus = (
     <Label
@@ -66,7 +62,8 @@ export default function ShopProductCard({ book }) {
   );
 
   return (
-    <Card>
+    <>
+      <Card>
       <Box sx={{ pt: '100%', position: 'relative' }}>
         {book?.status && renderStatus}
         {renderImg}
@@ -86,6 +83,12 @@ export default function ShopProductCard({ book }) {
         </Stack>
       </Stack>
     </Card>
+
+    
+    </>
+      
+      
+
 
   );
 }

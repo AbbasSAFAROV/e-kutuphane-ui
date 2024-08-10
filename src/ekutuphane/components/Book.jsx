@@ -1,11 +1,9 @@
-/* eslint-disable perfectionist/sort-imports */
 import axios from 'axios';
 
 import React, { useState, useEffect } from 'react';
 import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
-// import Typography from '@mui/material/Typography';
 import ProductCard from '../../sections/products/product-card'
 import ProductSort from '../../sections/products/product-sort';
 import ProductFilters from '../../sections/products/product-filters';
