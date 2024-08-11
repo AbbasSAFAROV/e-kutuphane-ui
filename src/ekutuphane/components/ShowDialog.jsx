@@ -27,8 +27,7 @@ export default function ShowDialog({ open, handleClose, book }) {
             <BootstrapDialog
                 onClose={handleClose}
                 aria-labelledby="customized-dialog-title"
-                open={open}   
-                sx={{ height: 1}}             
+                open={open}
             >
                 <div>
                     <Box
@@ -38,9 +37,9 @@ export default function ShowDialog({ open, handleClose, book }) {
                         sx={{
                             top: 0,
                             width: 1,
-                            height: '100px',
-                            objectFit: 'cover',
-                            position: 'absolute',
+                            height: '400px',                            
+                            objectFit: 'content',                           
+                            
                         }}
                     />
                 </div>
@@ -57,21 +56,22 @@ export default function ShowDialog({ open, handleClose, book }) {
                     <CloseIcon />
                 </IconButton>
                 <DialogContent dividers>
-                    <Typography gutterBottom>
+                    <Typography gutterBottom sx={{textAlign: 'center', fontWeight: 'bold'}}>
                         {book?.bookName}
                     </Typography>
                     <Typography gutterBottom>
-                        {book?.author}
+                    {book?.summary}                         
                     </Typography>
-                    <Typography gutterBottom>
                         {book?.summary}
+                    <Typography gutterBottom sx={{textAlign: 'right', fontFamily: 'serif' }}>
+                        {book?.author}
                     </Typography>
                 </DialogContent>
                 {/* <DialogActions>
-          <Button autoFocus onClick={handleClose}>
-            Save changes
-          </Button>
-        </DialogActions> */}
+                    <Button autoFocus onClick={handleClose}>
+                        Save changes
+                    </Button>
+                </DialogActions> */}
             </BootstrapDialog>
         </React.Fragment>
     );

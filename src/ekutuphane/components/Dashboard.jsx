@@ -3,14 +3,16 @@ import React, { useState, useEffect } from 'react';
 
 import Paper from '@mui/material/Paper';
 import Container from '@mui/material/Container';
-import Table from '@mui/material/Table'; 
+import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import TableRow from '@mui/material/TableRow'; 
+import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
-import Typography from '@mui/material/Typography'; 
-import TableContainer from '@mui/material/TableContainer'; 
-import Grid from '@mui/material/Unstable_Grid2'; 
+import Typography from '@mui/material/Typography';
+import TableContainer from '@mui/material/TableContainer';
+import Grid from '@mui/material/Unstable_Grid2';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import AppWidgetSummary from 'src/sections/overview/app-widget-summary';
 
@@ -21,24 +23,36 @@ export default function Dashboard() {
   const [usercount, setUsercount] = useState([]);
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    const token = user ? user.token : null;    
-    console.log("token=",token)
-    axios.get('http://localhost:8080/api/book/GetAll', {
-        headers: {
-            Authorization: `Bearer ${token}` 
-        }
-    })
-    .then(response => {
-        setBooks(response.data);
-    })
-    .catch(error => {
-        console.error('API isteği sırasında hata oluştu:', error);
-    });
+    fetchBooks();
+    axios.get('http://localhost:8080/api/book/count').then(response => { setBookcount(response?.data) })
+    axios.get('http://localhost:8080/api/user/count').then(response => { setUsercount(response?.data) })    
+  }, []);
 
-    axios.get('http://localhost:8080/api/book/count').then(response => { setBookcount(response?.data)})
-    axios.get('http://localhost:8080/api/user/count').then(response => { setUsercount(response?.data)})
-}, []);
+  const fetchBooks = async () => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    const token = user ? user.token : null;
+    console.log("token=", token)
+    await axios.get('http://localhost:8080/api/book/GetAll', {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then(response => {
+        setBooks(response.data);
+      })
+      .catch(error => {
+        console.error('API isteği sırasında hata oluştu:', error);
+      });
+  }
+
+  const handleUpdateBook = (book) => {
+    console.log("book",book);
+    
+    
+    axios.put('http://localhost:8080/api/book?bookId=' + book?.bookId, book )
+    fetchBooks();
+  }
+
 
   return (
     <Container maxWidth="xl">
@@ -83,27 +97,32 @@ export default function Dashboard() {
           />
         </Grid>
         <TableContainer component={Paper} sx={{ mt: 5 }}>
-        <Table>          
-          <TableHead>          
-            <TableRow>
-              <TableCell>Adı</TableCell>
-              <TableCell>Özet</TableCell>
-              <TableCell>Yazar</TableCell>
-              <TableCell>Stok Sayısı</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {books.map((book) => (
-              <TableRow >
-                <TableCell>{book?.bookName}</TableCell>  
-                <TableCell>{book?.summary}</TableCell>              
-                <TableCell>{book?.author}</TableCell>                
-                <TableCell>{book?.quantity}</TableCell>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Adı</TableCell>
+                <TableCell>Özet</TableCell>
+                <TableCell>Yazar</TableCell>
+                <TableCell>Stok Sayısı</TableCell>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+
               </TableRow>
-          ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+            </TableHead>
+            <TableBody>
+              {books.map((book) => (
+                <TableRow >
+                  <TableCell>{book?.bookName}</TableCell>
+                  <TableCell>{book?.summary}</TableCell>
+                  <TableCell>{book?.author}</TableCell>
+                  <TableCell>{book?.quantity}</TableCell>
+                  <TableCell><EditIcon onClick={(book)=> handleUpdateBook(book)}/></TableCell>
+                  <TableCell><DeleteIcon /></TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
 
       </Grid>
     </Container>
