@@ -6,12 +6,23 @@ import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Label from 'src/components/label';
+import ShowDialog from 'src/ekutuphane/components/ShowDialog';
+import { Book } from 'src/ekutuphane/router/Router';
 
 // ----------------------------------------------------------------------
 
 export default function ShopProductCard({ book }) {
 
-  const [modal, setModal] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    console.log("open")
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
 
   const renderStatus = (
     <Label
@@ -63,33 +74,31 @@ export default function ShopProductCard({ book }) {
 
   return (
     <>
-      <Card>
-      <Box sx={{ pt: '100%', position: 'relative' }}>
-        {book?.status && renderStatus}
-        {renderImg}
-      </Box>
+      <Card onClick={handleClickOpen}>
+        <Box sx={{ pt: '100%', position: 'relative' }}>
+          {book?.status && renderStatus}
+          {renderImg}
+        </Box>
 
-      <Stack spacing={2} sx={{ p: 3 }}>
-        <Link color="inherit" underline="hover" variant="subtitle2" noWrap>
-          {book?.bookName}
-        </Link>
+        <Stack spacing={2} sx={{ p: 3 }}>
+          <Link color="inherit" underline="hover" variant="subtitle2" noWrap>
+            {book?.bookName}
+          </Link>
 
-        <Stack direction="row" alignItems="center" justifyContent="space-between">
-          <Link sx={{
-            color: 'text.disabled',
-            textDecoration: 'none',
-          }}> {book?.author}</Link>
-          {renderPrice}
+          <Stack direction="row" alignItems="center" justifyContent="space-between">
+            <Link sx={{
+              color: 'text.disabled',
+              textDecoration: 'none',
+            }}> {book?.author}</Link>
+            {renderPrice}
+          </Stack>
         </Stack>
-      </Stack>
-    </Card>
+      </Card>
+            {
+              open===true && <ShowDialog open={open} handleClose={handleClose} book={book}/>
+            }     
 
-    
     </>
-      
-      
-
-
   );
 }
 
