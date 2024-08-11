@@ -20,22 +20,26 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     },
 }));
 
-export default function FormDialog({ open, setOpen, book, setUpdatedBook, fetchBooks }) {
+export default function AddFormDialog({ open, setOpen, fetchBooks, handleGetBookAndUserCount }) {
+
+
+    const [book, setBook] = useState({});
 
     const handleClose = () => {
         setOpen(false)
     }
-
-    const handleUpdateBook = async (book) => {
-        await axios.put('http://localhost:8080/api/book?bookId=' + book?.bookId, book)
+    const handleAddBook = async (book) => {
+        await axios.post('http://localhost:8080/api/book', book)
             .then(() => {
-                setOpen(false);
                 fetchBooks();
+                handleGetBookAndUserCount();
+                handleClose();
             })
             .catch(error => {
-                console.error('API isteği sırasında hata oluştu:', error);
+                console.error('Kitap ekleme işlemi sırasında hata oluştu.', error);
             });
     }
+
 
     return (
         <React.Fragment>
@@ -44,20 +48,6 @@ export default function FormDialog({ open, setOpen, book, setUpdatedBook, fetchB
                 aria-labelledby="customized-dialog-title"
                 open={open}
             >
-                <div>
-                    <Box
-                        component="img"
-                        alt={book?.bookName}
-                        src={book?.imageUrl}
-                        sx={{
-                            top: 0,
-                            width: 1,
-                            height: '400px',
-                            objectFit: 'content',
-
-                        }}
-                    />
-                </div>
                 <IconButton
                     aria-label="close"
                     onClick={handleClose}
@@ -79,7 +69,7 @@ export default function FormDialog({ open, setOpen, book, setUpdatedBook, fetchB
                         fullWidth
                         variant="standard"
                         value={book?.bookName}
-                        onChange={(e) => setUpdatedBook({ ...book, bookName: e.target.value })}
+                        onChange={(e) => setBook({ ...book, bookName: e.target.value })}
                     />
                     <TextField
                         autoFocus
@@ -90,7 +80,18 @@ export default function FormDialog({ open, setOpen, book, setUpdatedBook, fetchB
                         fullWidth
                         variant="standard"
                         value={book?.summary}
-                        onChange={(e) => setUpdatedBook({ ...book, summary: e.target.value })}
+                        onChange={(e) => setBook({ ...book, summary: e.target.value })}
+                    />
+                    <TextField
+                        autoFocus
+                        multiline
+                        margin="dense"
+                        label="Kitabın Yazarı"
+                        type="text"
+                        fullWidth
+                        variant="standard"
+                        value={book?.author}
+                        onChange={(e) => setBook({ ...book, author: e.target.value })}
                     />
                     <TextField
                         autoFocus
@@ -101,15 +102,24 @@ export default function FormDialog({ open, setOpen, book, setUpdatedBook, fetchB
                         fullWidth
                         variant="standard"
                         value={book?.quantity}
-                        onChange={(e) => setUpdatedBook({ ...book, quantity: e.target.value })}
+                        onChange={(e) => setBook({ ...book, quantity: e.target.value })}
                     />
-                    <Typography gutterBottom sx={{ textAlign: 'right', fontFamily: 'serif' }}>
-                        {book?.author}
-                    </Typography>
+                    <TextField
+                        autoFocus
+                        multiline
+                        margin="dense"
+                        label="Kitabın resmi"
+                        type="text"
+                        fullWidth
+                        variant="standard"
+                        value={book?.imageUrl}
+                        onChange={(e) => setBook({ ...book, imageUrl: e.target.value })}
+                    />
+
                 </DialogContent>
                 <DialogActions>
-                    <Button autoFocus onClick={() => handleUpdateBook(book)}>
-                        Güncelle
+                    <Button autoFocus onClick={() => handleAddBook(book)}>
+                        Ekle
                     </Button>
                 </DialogActions>
             </Dialog>
