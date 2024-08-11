@@ -15,7 +15,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
 import Iconify from 'src/components/iconify';
-import AddIcon from '@mui/icons-material/Add';
+import Alert from '@mui/material/Alert';
 
 
 import AppWidgetSummary from 'src/sections/overview/app-widget-summary';
@@ -30,6 +30,7 @@ export default function Dashboard() {
   const [open, setOpen] = useState(false);
   const [addFormDialog, setAddFormDialog] = useState(false);
   const [updatedBook, setUpdatedBook] = useState({});
+  const [alert, setAlert] = useState("")
 
   useEffect(() => {
     fetchBooks();
@@ -71,11 +72,21 @@ export default function Dashboard() {
       .then(() => {
         fetchBooks();
         handleGetBookAndUserCount();
+        handleAlert("success")
       })
       .catch(error => {
         console.error('Kitap silme işlemi sırasında hata oluştu.', error);
+        handleAlert("error");
       });
 
+  }
+
+  const handleAlert = (message) => {
+    if (message === "error") {
+      setAlert("error")
+    } else if (message === "success") {
+      setAlert("success")
+    }
   }
 
 
@@ -150,7 +161,7 @@ export default function Dashboard() {
                     <TableCell>{book?.author}</TableCell>
                     <TableCell>{book?.quantity}</TableCell>
                     <TableCell>
-                      <EditIcon sx={{marginRight: '30px'}} onClick={() => handleUpdateForm(book)} />
+                      <EditIcon sx={{ marginRight: '30px' }} onClick={() => handleUpdateForm(book)} />
                       <DeleteIcon onClick={() => handleDeleteBook(book)} />
                     </TableCell>
 
@@ -167,6 +178,9 @@ export default function Dashboard() {
       {
         addFormDialog === true && <AddFormDialog open={addFormDialog} setOpen={setAddFormDialog} fetchBooks={fetchBooks} handleGetBookAndUserCount={handleGetBookAndUserCount} />
       }
+      {      
+        alert === "succes" ? <Alert severity="success"> İşlem başarılı .</Alert> : <Alert severity="error"> İşlem başarısız .</Alert> 
+      }      
     </>
   );
 }
