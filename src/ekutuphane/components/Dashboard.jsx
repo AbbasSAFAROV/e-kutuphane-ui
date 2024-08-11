@@ -149,8 +149,8 @@ export default function Dashboard() {
                     <TableCell>{book?.summary}</TableCell>
                     <TableCell>{book?.author}</TableCell>
                     <TableCell>{book?.quantity}</TableCell>
-                    <TableCell sx={{ maxHeight: '100%', display: 'flex', justifyContent: 'center', gap: '30px', alignItems: 'center' }}>
-                      <EditIcon onClick={() => handleUpdateForm(book)} />
+                    <TableCell>
+                      <EditIcon sx={{marginRight: '30px'}} onClick={() => handleUpdateForm(book)} />
                       <DeleteIcon onClick={() => handleDeleteBook(book)} />
                     </TableCell>
 
